@@ -48,6 +48,9 @@ AD-Identity-Operations-Toolkit/
 ├── Phase8-HybridIdentityAudit/
 │   └── Get-HybridIdentityAudit.ps1
 │
+├── Phase9-PIMGovernanceAudit/
+│   └── Get-PIMGovernanceAudit.ps1
+│
 ├── Reports/                        # Auto-generated HTML reports (gitignored)
 ├── SampleOutputs/                  # Sanitized sample report screenshots
 ├── docs/
@@ -115,6 +118,13 @@ Audits the hybrid identity boundary where on-premises AD is synchronized to Micr
 **Key detections:** Privileged accounts synced to Entra ID · Azure AD Connect service account audit · UPN suffix mismatches · adminCount=1 on synced accounts · Stale synced accounts · ProxyAddress conflicts
 
 ---
+
+### Phase 9 — Privileged Identity Management (PIM) Audit
+Audits permanent privileged role assignments across the domain and identifies PIM governance gaps. Detects accounts that should be converted to just-in-time eligible roles, SDProp adminCount artifacts, non-dedicated admin accounts with permanent privilege, and stale standing privileged access.
+
+**Key detections:** Permanent Domain Admin assignments · SDProp adminCount=1 artifacts · Non-dedicated accounts with standing privilege · Stale permanent privileged accounts · Cloud-synced privileged principals · Service accounts with permanent admin rights
+
+---
 ⚙️ Requirements
 
 | Component | Minimum Version |
@@ -157,6 +167,7 @@ Import-Module ActiveDirectory
 | Service Account Security | CIS Control 5.6 · NIST 800-53 AC-6 | Phase 5 |
 | Audit Logging | OSFI E-21 §4.1 · CIS Control 8 | Phase 6, 7 |
 | Hybrid Identity Governance | OSFI E-21 §3.2/3.4 · NIST SP 800-53 IA-2 | Phase 8 |
+| Just-In-Time Privileged Access | OSFI E-21 §3.2 · CIS Control 5.4 · NIST AC-6(5) | Phase 9 |
 
 ---
 

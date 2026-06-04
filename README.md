@@ -45,6 +45,9 @@ AD-Identity-Operations-Toolkit/
 ├── Phase7-ExecutiveSummaryReport/
 │   └── New-ExecutiveSummaryReport.ps1
 │
+├── Phase8-HybridIdentityAudit/
+│   └── Get-HybridIdentityAudit.ps1
+│
 ├── Reports/                        # Auto-generated HTML reports (gitignored)
 ├── SampleOutputs/                  # Sanitized sample report screenshots
 ├── docs/
@@ -105,7 +108,14 @@ Aggregates findings from all phases into a single executive-ready HTML report wi
 
 ---
 
-## ⚙️ Requirements
+## 
+### Phase 8 — Hybrid Identity & Entra ID Sync Audit
+Audits the hybrid identity boundary where on-premises AD is synchronized to Microsoft Entra ID via Azure AD Connect. Detects privileged accounts synced to the cloud, AADC service account misconfigurations, UPN conflicts, and stale synced accounts active in both environments.
+
+**Key detections:** Privileged accounts synced to Entra ID · Azure AD Connect service account audit · UPN suffix mismatches · adminCount=1 on synced accounts · Stale synced accounts · ProxyAddress conflicts
+
+---
+⚙️ Requirements
 
 | Component | Minimum Version |
 |---|---|
@@ -146,6 +156,7 @@ Import-Module ActiveDirectory
 | Access Reviews & Recertification | CIS Control 6.3 · SOC 2 CC6.3 | Phase 2, 4 |
 | Service Account Security | CIS Control 5.6 · NIST 800-53 AC-6 | Phase 5 |
 | Audit Logging | OSFI E-21 §4.1 · CIS Control 8 | Phase 6, 7 |
+| Hybrid Identity Governance | OSFI E-21 §3.2/3.4 · NIST SP 800-53 IA-2 | Phase 8 |
 
 ---
 

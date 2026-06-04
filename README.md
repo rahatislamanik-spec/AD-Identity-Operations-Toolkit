@@ -4,7 +4,7 @@
 ![PowerShell](https://img.shields.io/badge/PowerShell-7.x-blue?logo=powershell)
 ![Platform](https://img.shields.io/badge/Platform-Windows%20Server%202019%2F2022-lightgrey?logo=windows)
 ![Compliance](https://img.shields.io/badge/Compliance-OSFI%20E--21%20%7C%20CIS%20Controls-green)
-![Status](https://img.shields.io/badge/Status-Active%20Development-orange)
+![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)
 ![License](https://img.shields.io/badge/License-MIT-brightgreen)
 
 ---

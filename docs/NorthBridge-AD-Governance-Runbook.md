@@ -6,7 +6,7 @@
 
 ## Purpose
 
-This runbook documents the operational procedures, escalation paths, and execution guidelines for the AD Identity Operations Toolkit deployed in the NorthBridge Financial Group enterprise environment.
+This runbook documents operational procedures, escalation paths, and execution guidelines for the AD Identity Operations Toolkit in a simulated NorthBridge Financial Group environment.
 
 ---
 
@@ -21,6 +21,8 @@ This runbook documents the operational procedures, escalation paths, and executi
 | Phase 5 | Get-ServiceAccountGovernance.ps1 | Monthly | L3 IAM |
 | Phase 6 | Invoke-InactiveObjectCleanup.ps1 | Monthly (with approval) | L3 IAM + Change Advisory Board |
 | Phase 7 | New-ExecutiveSummaryReport.ps1 | Monthly | L3 IAM |
+| Phase 8 | Get-HybridIdentityAudit.ps1 | Monthly | L3 IAM + Cloud Identity Team |
+| Phase 9 | Get-PIMGovernanceAudit.ps1 | Monthly | L3 IAM + Security Operations |
 
 ---
 
@@ -38,10 +40,11 @@ This runbook documents the operational procedures, escalation paths, and executi
 ## Pre-Execution Checklist
 
 - [ ] Confirm change window is approved via Change Advisory Board
-- [ ] Run all scripts in `-WhatIf` mode first and review output
+- [ ] Run audit scripts in preview mode first and review output
 - [ ] Ensure AD audit logging is enabled
 - [ ] Confirm backup of AD state prior to Phase 6 execution
 - [ ] Notify affected department heads before account disablement
+- [ ] Use Phase 6 write switches only in a lab or approved production change window
 
 ---
 

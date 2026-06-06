@@ -5,12 +5,13 @@
     AD Identity Operations Toolkit | Phase 7
 
 .DESCRIPTION
-    Aggregates findings from all 6 phases of the AD Identity Operations Toolkit
+    Aggregates findings from the core AD governance phases of the AD Identity
+    Operations Toolkit
     into a single executive-ready HTML report with risk scoring, trend indicators,
     and OSFI E-21 control mapping. Designed for CISO and audit committee consumption.
 
     This script can be run in two modes:
-        1. STANDALONE — runs all 6 phases internally and aggregates results
+        1. STANDALONE — runs the core AD governance checks internally and aggregates results
         2. PIPELINE   — accepts pre-collected findings arrays from prior phase runs
 
     Report Sections:
@@ -531,7 +532,7 @@ $html = @"
 <div class="header">
   <div class="org">🏦 $OrganizationName</div>
   <h1>Active Directory Identity Operations — Executive Summary Report</h1>
-  <div class="subtitle">Comprehensive identity governance audit across all 6 phases · OSFI E-21 · CIS Controls v8 · NIST SP 800-53</div>
+  <div class="subtitle">Comprehensive identity governance audit across the core AD governance phases · OSFI E-21 · CIS Controls v8 · NIST SP 800-53</div>
   <div class="meta">
     <span><strong>Report Date:</strong> $runDateShort</span>
     <span><strong>Domain:</strong> $domain</span>

@@ -78,12 +78,19 @@ AD-Identity-Operations-Toolkit/
 
 ---
 
-## Architecture Artifacts
+## Architecture & Audit Workflow
 
-| Artifact | Description |
-|---|---|
-| [AD Toolkit Architecture](docs/ad-toolkit-architecture.html) | Visualizes the toolkit pipeline from AD data sources to PowerShell audits, report templates, governance review, and remediation planning. |
-| [AD Toolkit Audit Workflow](docs/ad-toolkit-audit-workflow.html) | Visual workflow showing scheduled PowerShell audit execution, AD object review, report generation, governance review, approved remediation, and next-run validation. |
+![AD Toolkit Architecture](docs/images/ad-toolkit-architecture.svg)
+
+Visualizes the toolkit pipeline from AD data sources to PowerShell audits, report templates, governance review, and remediation planning.
+
+[View interactive HTML version](docs/ad-toolkit-architecture.html)
+
+![AD Toolkit Audit Workflow](docs/images/ad-toolkit-audit-workflow.svg)
+
+Visual workflow showing scheduled PowerShell audit execution, AD object review, report generation, governance review, approved remediation, and next-run validation.
+
+[View interactive HTML version](docs/ad-toolkit-audit-workflow.html)
 
 These artifacts explain the intended architecture and operating model for the toolkit. They are not retained execution evidence, generated reports, or proof of production deployment.
 

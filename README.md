@@ -26,12 +26,12 @@ Developed for a simulated **NorthBridge Financial Group** environment that model
 | PowerShell audit scripts | Included |
 | HTML report templates | Included inside scripts |
 | Generated HTML reports | Not retained |
-| Screenshot evidence | Not retained |
+| macOS validation screenshots | Included |
 | Live AD lab execution evidence | To be regenerated |
 | Sample output folder | Placeholder only |
 | Safety model | Documented in README, runbook, and Phase 6 script |
 
-This repository should be reviewed as a **code-centered Active Directory governance toolkit**. It does not currently include retained screenshots or generated reports from the original lab run.
+This repository should be reviewed as a **code-centered Active Directory governance toolkit**. It includes screenshot evidence for script inventory and macOS dependency validation, but does not currently include generated reports or live Windows Active Directory execution screenshots from the original lab run.
 
 ---
 
@@ -39,7 +39,7 @@ This repository should be reviewed as a **code-centered Active Directory governa
 
 This repository is currently complete as a Version 1 code-centered Active Directory governance toolkit. It includes the script framework, phase documentation, architecture visualization, audit workflow visualization, and operational runbook.
 
-Current evidence includes the README-visible architecture and audit workflow visuals plus linked GitHub Pages HTML versions. Generated HTML reports, CSV outputs, and live AD execution screenshots are planned future validation artifacts and are not currently claimed as retained execution evidence.
+Current evidence includes the README-visible architecture and audit workflow visuals, linked GitHub Pages HTML versions, script inventory evidence, and macOS dependency validation evidence. Generated HTML reports, CSV outputs, and live AD execution screenshots are planned future validation artifacts and are not currently claimed as retained execution evidence.
 
 The toolkit requires a Windows Active Directory administration environment with the ActiveDirectory PowerShell module available through RSAT or Windows Server. macOS PowerShell dependency validation confirmed that the scripts correctly enforce this dependency through `#Requires -Modules ActiveDirectory`; the scripts are not claimed to have executed successfully on macOS.
 
@@ -81,9 +81,17 @@ AD-Identity-Operations-Toolkit/
 │
 ├── Reports/                        # Auto-generated HTML reports (gitignored)
 ├── SampleOutputs/                  # Placeholder for future sanitized sample reports
+├── evidence/
+│   ├── macos-active-directory-module-validation.png
+│   ├── phase1-script-header-active-directory-requirement.png
+│   └── script-inventory-active-directory-requirement.png
+│
 ├── docs/
 │   ├── ad-toolkit-architecture.html
 │   ├── ad-toolkit-audit-workflow.html
+│   ├── images/
+│   │   ├── ad-toolkit-architecture.svg
+│   │   └── ad-toolkit-audit-workflow.svg
 │   └── NorthBridge-AD-Governance-Runbook.md
 └── README.md
 ```
@@ -105,6 +113,30 @@ Visual workflow showing scheduled PowerShell audit execution, AD object review, 
 [View interactive HTML version](https://rahatislamanik-spec.github.io/AD-Identity-Operations-Toolkit/docs/ad-toolkit-audit-workflow.html)
 
 These artifacts explain the intended architecture and operating model for the toolkit. They are not retained execution evidence, generated reports, or proof of production deployment.
+
+---
+
+## Evidence Snapshot
+
+These screenshots are macOS validation artifacts only. They confirm script inventory and dependency enforcement. They are not live Active Directory execution evidence.
+
+### Script Inventory
+
+![Script Inventory](evidence/script-inventory-active-directory-requirement.png)
+
+Shows all nine PowerShell phase scripts and confirms each script declares the `ActiveDirectory` module requirement.
+
+### macOS Dependency Validation
+
+![macOS Dependency Validation](evidence/macos-active-directory-module-validation.png)
+
+Shows PowerShell on macOS cannot load the `ActiveDirectory` module, confirming the toolkit requires Windows RSAT or Windows Server for live AD execution.
+
+### Phase 1 Script Header
+
+![Phase 1 Script Header](evidence/phase1-script-header-active-directory-requirement.png)
+
+Shows the Phase 1 read-only audit purpose, report output options, and `ActiveDirectory` module dependency.
 
 ---
 
@@ -159,7 +191,6 @@ Aggregates findings from all phases into a single executive-ready HTML report wi
 
 ---
 
-## 
 ### Phase 8 — Hybrid Identity & Entra ID Sync Audit
 Audits the hybrid identity boundary where on-premises AD is synchronized to Microsoft Entra ID via Azure AD Connect. Detects privileged accounts synced to the cloud, AADC service account misconfigurations, UPN conflicts, and stale synced accounts active in both environments.
 
@@ -173,7 +204,8 @@ Audits permanent privileged role assignments across the domain and identifies PI
 **Key detections:** Permanent Domain Admin assignments · SDProp adminCount=1 artifacts · Non-dedicated accounts with standing privilege · Stale permanent privileged accounts · Cloud-synced privileged principals · Service accounts with permanent admin rights
 
 ---
-⚙️ Requirements
+
+## ⚙️ Requirements
 
 | Component | Minimum Version |
 |---|---|

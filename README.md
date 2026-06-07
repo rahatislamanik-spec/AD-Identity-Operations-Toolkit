@@ -35,6 +35,18 @@ This repository should be reviewed as a **code-centered Active Directory governa
 
 ---
 
+## Version 1 Status
+
+This repository is currently complete as a Version 1 code-centered Active Directory governance toolkit. It includes the script framework, phase documentation, architecture visualization, audit workflow visualization, and operational runbook.
+
+Current evidence includes the README-visible architecture and audit workflow visuals plus linked GitHub Pages HTML versions. Generated HTML reports, CSV outputs, and live AD execution screenshots are planned future validation artifacts and are not currently claimed as retained execution evidence.
+
+The toolkit requires a Windows Active Directory administration environment with the ActiveDirectory PowerShell module available through RSAT or Windows Server. macOS PowerShell dependency validation confirmed that the scripts correctly enforce this dependency through `#Requires -Modules ActiveDirectory`; the scripts are not claimed to have executed successfully on macOS.
+
+The next major improvement is to run the scripts in a Windows AD lab and add sanitized generated reports, CSV outputs, and Windows Server, RSAT, or domain controller screenshots.
+
+---
+
 ## 🗂️ Repository Structure
 
 ```

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AD Identity Operations Toolkit Architecture</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            padding: 32px;
+            background: #eef5f3;
+            color: #162033;
+            font-family: "Segoe UI", Calibri, Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 36px;
+            background: #ffffff;
+            border: 1px solid #cfe2dc;
+            border-radius: 10px;
+            box-shadow: 0 16px 42px rgba(22, 32, 51, 0.12);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 24px;
+            color: #087568;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        header {
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            color: #162033;
+            font-size: 30px;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            color: #53647c;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .disclaimer {
+            max-width: 880px;
+            margin: 20px auto 0;
+            padding: 14px 16px;
+            background: #f7fbfa;
+            border: 1px solid #cfe2dc;
+            border-left: 4px solid #087568;
+            border-radius: 6px;
+            color: #36455c;
+            font-size: 14px;
+            line-height: 1.5;
+            text-align: left;
+        }
+
+        .pipeline-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+            margin-bottom: 28px;
+        }
+
+        .stage {
+            min-width: 0;
+            padding: 20px;
+            background: #f8fbff;
+            border: 1px solid #cbd7e7;
+            border-radius: 8px;
+        }
+
+        .stage-header {
+            margin-bottom: 18px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #087568;
+            color: #25344d;
+            font-size: 18px;
+            font-weight: 800;
+            text-align: center;
+        }
+
+        .component {
+            margin-bottom: 14px;
+            padding: 15px;
+            background: #ffffff;
+            border: 2px solid #6f8fc0;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(49, 92, 159, 0.12);
+            color: #162033;
+            font-weight: 700;
+            line-height: 1.35;
+            text-align: center;
+        }
+
+        .component small {
+            display: block;
+            margin-top: 5px;
+            color: #53647c;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .component.core {
+            background: #087568;
+            border-color: #065d52;
+            color: #ffffff;
+        }
+
+        .component.core small {
+            color: #d8f0ec;
+        }
+
+        .component.report {
+            background: #fff5f4;
+            border-color: #d66a52;
+        }
+
+        .component.governance {
+            background: #fff9e8;
+            border-color: #d5a51d;
+        }
+
+        .controls-box {
+            margin-top: 26px;
+            padding: 20px;
+            background: #fff9e8;
+            border: 1px solid #e1bd54;
+            border-radius: 8px;
+        }
+
+        .controls-title {
+            margin-bottom: 14px;
+            color: #162033;
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .controls-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px 20px;
+            color: #36455c;
+            font-size: 14px;
+            line-height: 1.45;
+            list-style: none;
+        }
+
+        .controls-list li {
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .controls-list li::before {
+            position: absolute;
+            left: 0;
+            color: #b28210;
+            content: ">";
+            font-weight: 800;
+        }
+
+        .metrics-footer {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 26px;
+            padding: 20px;
+            background: #162033;
+            border-radius: 8px;
+            color: #ffffff;
+        }
+
+        .metric {
+            text-align: center;
+        }
+
+        .metric-value {
+            margin-bottom: 5px;
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .metric-label {
+            color: #d4deed;
+            font-size: 12px;
+            line-height: 1.35;
+        }
+
+        .caption {
+            margin-top: 14px;
+            color: #66758c;
+            font-size: 12px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        @media (max-width: 1050px) {
+            .pipeline-grid,
+            .controls-list,
+            .metrics-footer {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 720px) {
+            body {
+                padding: 18px;
+            }
+
+            .container {
+                padding: 24px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .pipeline-grid,
+            .controls-list,
+            .metrics-footer {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="container">
+        <a class="back-link" href="../README.md">Back to AD Identity Operations Toolkit</a>
+
+        <header>
+            <h1>AD Identity Operations Toolkit Architecture</h1>
+            <p class="subtitle">PowerShell automation pipeline for Active Directory governance, reporting, and remediation planning</p>
+            <p class="disclaimer">
+                This architecture represents the intended toolkit design for a simulated AD governance environment. It is a portfolio planning artifact, not retained execution evidence, a generated report, or proof of production deployment.
+            </p>
+        </header>
+
+        <section class="pipeline-grid" aria-label="AD identity operations toolkit architecture pipeline">
+            <section class="stage" aria-labelledby="data-source">
+                <h2 class="stage-header" id="data-source">Data Sources</h2>
+                <div class="component">Active Directory Domain Services<small>Domain controllers and directory objects</small></div>
+                <div class="component">Windows Server<small>Windows Server 2019/2022 lab target</small></div>
+                <div class="component">Group Policy Objects<small>Password, security, and administrative policy context</small></div>
+            </section>
+
+            <section class="stage" aria-labelledby="automation-layer">
+                <h2 class="stage-header" id="automation-layer">Automation Layer</h2>
+                <div class="component core">PowerShell Audit Scripts<small>Stale accounts, privileged access, passwords, groups, service accounts</small></div>
+                <div class="component core">Scheduled Execution Model<small>Manual, daily, or weekly run cadence</small></div>
+                <div class="component governance">Governance Checks<small>NIST/CIS-aligned review logic and risk flags</small></div>
+            </section>
+
+            <section class="stage" aria-labelledby="reporting-layer">
+                <h2 class="stage-header" id="reporting-layer">Reporting Layer</h2>
+                <div class="component">Findings Normalization<small>Structured PowerShell objects and phase outputs</small></div>
+                <div class="component report">HTML Report Templates<small>Interactive technical and executive report layouts</small></div>
+                <div class="component report">CSV Export<small>Optional data export for ticketing, review, or future SIEM use</small></div>
+            </section>
+
+            <section class="stage" aria-labelledby="governance-outcomes">
+                <h2 class="stage-header" id="governance-outcomes">Governance Outcomes</h2>
+                <div class="component governance">Executive Summary<small>Risk themes, control gaps, and remediation priorities</small></div>
+                <div class="component governance">Security Recommendations<small>Owner review, access reduction, cleanup, or exception handling</small></div>
+                <div class="component core">Remediation Queue<small>Approved actions tracked through the next audit run</small></div>
+            </section>
+        </section>
+
+        <section class="controls-box" aria-labelledby="governance-capabilities">
+            <h2 class="controls-title" id="governance-capabilities">Governance Capabilities</h2>
+            <ul class="controls-list">
+                <li>User, group, computer, and privileged account audits</li>
+                <li>Stale account identification using configurable inactivity thresholds</li>
+                <li>Password policy and fine-grained password policy review</li>
+                <li>HTML and CSV output patterns for technical and executive use</li>
+                <li>Remediation planning with validation in the next scheduled run</li>
+                <li>NIST/CIS-aligned governance checks, not formal compliance certification</li>
+            </ul>
+        </section>
+
+        <section class="metrics-footer" aria-label="Modeled executive summary indicators">
+            <div class="metric">
+                <div class="metric-value">Phase 1</div>
+                <div class="metric-label">Stale Account Detection</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">Phase 2</div>
+                <div class="metric-label">Privileged Account Audit</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">Phase 3</div>
+                <div class="metric-label">Password Policy Review</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">Phase 7</div>
+                <div class="metric-label">Executive Summary Report</div>
+            </div>
+        </section>
+
+        <p class="caption">
+            NorthBridge Financial Group is a fictional organization used for portfolio documentation. Generated reports and screenshots are planned future validation artifacts and are not retained in this repository.
+        </p>
+    </main>
+</body>
+</html>

@@ -70,6 +70,7 @@ AD-Identity-Operations-Toolkit/
 ├── Reports/                        # Auto-generated HTML reports (gitignored)
 ├── SampleOutputs/                  # Placeholder for future sanitized sample reports
 ├── docs/
+│   ├── ad-toolkit-architecture.html
 │   ├── ad-toolkit-audit-workflow.html
 │   └── NorthBridge-AD-Governance-Runbook.md
 └── README.md
@@ -81,9 +82,10 @@ AD-Identity-Operations-Toolkit/
 
 | Artifact | Description |
 |---|---|
+| [AD Toolkit Architecture](docs/ad-toolkit-architecture.html) | Visualizes the toolkit pipeline from AD data sources to PowerShell audits, report templates, governance review, and remediation planning. |
 | [AD Toolkit Audit Workflow](docs/ad-toolkit-audit-workflow.html) | Visual workflow showing scheduled PowerShell audit execution, AD object review, report generation, governance review, approved remediation, and next-run validation. |
 
-This artifact explains the intended operating model for the toolkit. It is not retained execution evidence, a generated report, or proof of production deployment.
+These artifacts explain the intended architecture and operating model for the toolkit. They are not retained execution evidence, generated reports, or proof of production deployment.
 
 ---
 

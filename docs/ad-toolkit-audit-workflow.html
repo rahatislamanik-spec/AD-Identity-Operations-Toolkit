@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AD Identity Governance Audit Workflow</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            padding: 32px;
+            background: #eef5f3;
+            color: #162033;
+            font-family: "Segoe UI", Calibri, Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 36px;
+            background: #ffffff;
+            border: 1px solid #cfe2dc;
+            border-radius: 10px;
+            box-shadow: 0 16px 42px rgba(22, 32, 51, 0.12);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 24px;
+            color: #087568;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            color: #162033;
+            font-size: 30px;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            color: #53647c;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .disclaimer {
+            margin-top: 20px;
+            padding: 14px 16px;
+            background: #f7fbfa;
+            border: 1px solid #cfe2dc;
+            border-left: 4px solid #087568;
+            border-radius: 6px;
+            color: #36455c;
+            font-size: 14px;
+            line-height: 1.5;
+            text-align: left;
+        }
+
+        .flow {
+            display: grid;
+            gap: 14px;
+        }
+
+        .flow-step {
+            display: grid;
+            justify-items: center;
+        }
+
+        .step-box {
+            width: min(100%, 760px);
+            padding: 18px 20px;
+            background: #ffffff;
+            border: 2px solid #6f8fc0;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(49, 92, 159, 0.12);
+            color: #162033;
+            font-weight: 700;
+            line-height: 1.35;
+            text-align: center;
+        }
+
+        .step-box small {
+            display: block;
+            margin-top: 5px;
+            color: #53647c;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .step-box.start-end {
+            max-width: 560px;
+            background: #087568;
+            border-color: #065d52;
+            border-radius: 999px;
+            color: #ffffff;
+        }
+
+        .step-box.start-end small {
+            color: #d8f0ec;
+        }
+
+        .step-box.process {
+            background: #f4f8fd;
+            border-color: #315c9f;
+        }
+
+        .step-box.review {
+            background: #fff9e8;
+            border-color: #d5a51d;
+        }
+
+        .step-box.report {
+            background: #fff5f4;
+            border-color: #d66a52;
+        }
+
+        .step-box.action {
+            background: #f1fbf8;
+            border-color: #3d9987;
+            color: #0f6659;
+        }
+
+        .arrow-down {
+            width: 3px;
+            height: 24px;
+            margin: 0 auto;
+            background: #087568;
+            position: relative;
+        }
+
+        .arrow-down::after {
+            position: absolute;
+            bottom: -1px;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-top: 10px solid #087568;
+            content: "";
+            transform: translateX(-50%);
+        }
+
+        .decision-branch {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+            margin: 2px 0 8px;
+        }
+
+        .branch-label {
+            margin-bottom: 6px;
+            color: #53647c;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0;
+            text-align: center;
+        }
+
+        .branch-label.yes {
+            color: #0f6659;
+        }
+
+        .branch-label.no {
+            color: #53647c;
+        }
+
+        .continue-line {
+            height: 4px;
+            margin-top: 22px;
+            background: #3d9987;
+            border-radius: 999px;
+        }
+
+        .evidence-box {
+            margin: 2px 0 8px;
+            padding: 16px;
+            background: #fff9e8;
+            border: 1px solid #e1bd54;
+            border-radius: 8px;
+            color: #36455c;
+            font-size: 14px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .evidence-title {
+            margin-bottom: 8px;
+            color: #162033;
+            font-weight: 800;
+        }
+
+        .summary-box {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f4f8fd;
+            border: 1px solid #b8c9e2;
+            border-radius: 8px;
+        }
+
+        .summary-title {
+            margin-bottom: 12px;
+            color: #162033;
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .summary-text,
+        .remediation-path {
+            color: #36455c;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .remediation-path {
+            margin-top: 18px;
+            padding: 15px;
+            background: #ffffff;
+            border: 1px solid #d8e0ea;
+            border-radius: 6px;
+        }
+
+        .remediation-title {
+            margin-bottom: 8px;
+            color: #0f6659;
+            font-weight: 800;
+        }
+
+        @media (max-width: 720px) {
+            body {
+                padding: 18px;
+            }
+
+            .container {
+                padding: 24px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .decision-branch {
+                grid-template-columns: 1fr;
+            }
+
+            .continue-line {
+                margin-top: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="container">
+        <a class="back-link" href="../README.md">Back to AD Identity Operations Toolkit</a>
+
+        <header>
+            <h1>AD Identity Governance Audit Workflow</h1>
+            <p class="subtitle">Scheduled PowerShell audit process with reporting, governance review, and remediation validation</p>
+            <p class="disclaimer">
+                This workflow represents the intended audit process for a simulated AD governance toolkit. It is not retained execution evidence, a generated report, or proof of production deployment.
+            </p>
+        </header>
+
+        <section class="flow" aria-label="Active Directory governance audit workflow">
+            <div class="flow-step">
+                <div class="step-box start-end">Scheduled PowerShell Execution<small>Daily or weekly run through Task Scheduler, automation host, or administrator launch</small></div>
+            </div>
+            <div class="arrow-down"></div>
+
+            <div class="flow-step">
+                <div class="step-box process">AD Object Collection<small>Users, groups, computers, privileged accounts, service accounts, and hybrid identity indicators</small></div>
+            </div>
+            <div class="arrow-down"></div>
+
+            <div class="flow-step">
+                <div class="step-box review">Stale Account Review<small>Inactive users, stale computers, never-logged-in accounts, and disabled accounts with access</small></div>
+            </div>
+            <div class="arrow-down"></div>
+            <div class="flow-step">
+                <div class="step-box review">Stale Accounts Found?</div>
+            </div>
+            <div class="decision-branch">
+                <div>
+                    <div class="branch-label yes">YES</div>
+                    <div class="step-box review">Flag for disablement or owner review</div>
+                </div>
+                <div>
+                    <div class="branch-label no">NO</div>
+                    <div class="continue-line" aria-label="Continue to privileged account review"></div>
+                </div>
+            </div>
+
+            <div class="arrow-down"></div>
+            <div class="flow-step">
+                <div class="step-box review">Privileged Account Review<small>Domain Admins, Enterprise Admins, nested groups, and standing privileged access</small></div>
+            </div>
+            <div class="arrow-down"></div>
+            <div class="flow-step">
+                <div class="step-box review">Privilege Creep Detected?</div>
+            </div>
+            <div class="decision-branch">
+                <div>
+                    <div class="branch-label yes">YES</div>
+                    <div class="step-box review">Flag for privilege reduction or access recertification</div>
+                </div>
+                <div>
+                    <div class="branch-label no">NO</div>
+                    <div class="continue-line" aria-label="Continue to password policy review"></div>
+                </div>
+            </div>
+
+            <div class="arrow-down"></div>
+            <div class="flow-step">
+                <div class="step-box review">Password Policy Review<small>Default domain policy, fine-grained password policies, and account-level exceptions</small></div>
+            </div>
+            <div class="arrow-down"></div>
+            <div class="flow-step">
+                <div class="step-box review">Policy Violations Found?</div>
+            </div>
+            <div class="decision-branch">
+                <div>
+                    <div class="branch-label yes">YES</div>
+                    <div class="step-box review">Flag for remediation or policy tuning</div>
+                </div>
+                <div>
+                    <div class="branch-label no">NO</div>
+                    <div class="continue-line" aria-label="Continue to group membership audit"></div>
+                </div>
+            </div>
+
+            <div class="arrow-down"></div>
+            <div class="flow-step">
+                <div class="step-box review">Group Membership Audit<small>Nested groups, excessive privileges, orphaned groups, and governance-owner gaps</small></div>
+            </div>
+            <div class="arrow-down"></div>
+            <div class="flow-step">
+                <div class="step-box review">Excessive Privileges Detected?</div>
+            </div>
+            <div class="decision-branch">
+                <div>
+                    <div class="branch-label yes">YES</div>
+                    <div class="step-box review">Flag for access review</div>
+                </div>
+                <div>
+                    <div class="branch-label no">NO</div>
+                    <div class="continue-line" aria-label="Continue to report generation"></div>
+                </div>
+            </div>
+
+            <div class="arrow-down"></div>
+            <div class="flow-step">
+                <div class="step-box report">Report Generation<small>HTML dashboard template and optional CSV export</small></div>
+            </div>
+
+            <div class="evidence-box">
+                <div class="evidence-title">Expected Output Types</div>
+                HTML report template, CSV export, prioritized findings, and remediation recommendations. Generated outputs are not retained in this repository.
+            </div>
+
+            <div class="arrow-down"></div>
+            <div class="flow-step">
+                <div class="step-box review">Governance Review<small>Security, IAM, or systems administration team reviews findings</small></div>
+            </div>
+            <div class="arrow-down"></div>
+            <div class="flow-step">
+                <div class="step-box review">Critical Findings?</div>
+            </div>
+            <div class="decision-branch">
+                <div>
+                    <div class="branch-label yes">YES</div>
+                    <div class="step-box action">Open high-priority remediation tickets</div>
+                </div>
+                <div>
+                    <div class="branch-label no">NO</div>
+                    <div class="step-box review">Schedule standard remediation or owner review</div>
+                </div>
+            </div>
+
+            <div class="arrow-down"></div>
+            <div class="flow-step">
+                <div class="step-box action">Approved Remediation Actions<small>Disable accounts, reduce privileges, update policies, or document accepted exceptions</small></div>
+            </div>
+            <div class="arrow-down"></div>
+            <div class="flow-step">
+                <div class="step-box action">Validate Closure in Next Scheduled Run<small>Repeat audit confirms whether findings were remediated or remain open</small></div>
+            </div>
+            <div class="arrow-down"></div>
+
+            <div class="flow-step">
+                <div class="step-box start-end">Audit Cycle Complete</div>
+            </div>
+        </section>
+
+        <section class="summary-box" aria-labelledby="workflow-summary">
+            <h2 class="summary-title" id="workflow-summary">Workflow Summary</h2>
+            <p class="summary-text">
+                This workflow demonstrates enterprise identity governance: repeatable audit automation, risk-based findings, human review, approved remediation, and validation through the next scheduled run. Reporting alone is not treated as governance; governance requires review ownership, ticketing, remediation decisions, and closure validation.
+            </p>
+            <div class="remediation-path">
+                <div class="remediation-title">Remediation Path</div>
+                Findings flagged -> tickets opened -> remediation approved -> action executed -> next run validates closure.
+            </div>
+        </section>
+    </main>
+</body>
+</html>

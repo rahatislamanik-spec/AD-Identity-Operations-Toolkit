@@ -4,7 +4,8 @@
 ![PowerShell](https://img.shields.io/badge/PowerShell-7.x-blue?logo=powershell)
 ![Platform](https://img.shields.io/badge/Platform-Windows%20Server%202019%2F2022-lightgrey?logo=windows)
 ![Compliance](https://img.shields.io/badge/Compliance-OSFI%20E--21%20%7C%20CIS%20Controls-green)
-![Status](https://img.shields.io/badge/Status-Toolkit%20Framework-blue)
+![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)
+![Phases](https://img.shields.io/badge/Phases-10%20Complete-6D28D9)
 ![License](https://img.shields.io/badge/License-MIT-brightgreen)
 
 ---
@@ -277,6 +278,7 @@ Import-Module ActiveDirectory
 | Audit Logging | OSFI E-21 §4.1 · CIS Control 8 | Phase 6, 7 |
 | Hybrid Identity Governance | OSFI E-21 §3.2/3.4 · NIST SP 800-53 IA-2 | Phase 8 |
 | Just-In-Time Privileged Access | OSFI E-21 §3.2 · CIS Control 5.4 · NIST AC-6(5) | Phase 9 |
+| Passwordless Modernization | OSFI E-21 §3.3 · NIST SP 800-63B · CIS Control 5.2 | Phase 10 |
 
 ---
 

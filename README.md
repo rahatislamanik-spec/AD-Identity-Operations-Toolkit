@@ -88,6 +88,11 @@ AD-Identity-Operations-Toolkit/
 │   ├── Evidence/                   # 12 evidence screenshots
 │   └── Executive-Case-Study/       # CISO-ready executive case study
 │
+│   🔗 Companion Project: Full enterprise passwordless architecture, deployment
+│      governance, and Conditional Access design →
+│      NorthBridge-Passwordless-Modernization
+│      https://github.com/rahatislamanik-spec/NorthBridge-Passwordless-Modernization
+│
 ├── Reports/                        # Auto-generated HTML reports (gitignored)
 ├── SampleOutputs/                  # Placeholder for future sanitized sample reports
 ├── evidence/
@@ -278,7 +283,21 @@ Import-Module ActiveDirectory
 | Audit Logging | OSFI E-21 §4.1 · CIS Control 8 | Phase 6, 7 |
 | Hybrid Identity Governance | OSFI E-21 §3.2/3.4 · NIST SP 800-53 IA-2 | Phase 8 |
 | Just-In-Time Privileged Access | OSFI E-21 §3.2 · CIS Control 5.4 · NIST AC-6(5) | Phase 9 |
-| Passwordless Modernization | OSFI E-21 §3.3 · NIST SP 800-63B · CIS Control 5.2 | Phase 10 |
+| Passwordless Modernization | OSFI E-21 §3.3 · NIST SP 800-63B · CIS Control 5.2 | Phase 10 · [NorthBridge Companion →](https://github.com/rahatislamanik-spec/NorthBridge-Passwordless-Modernization) |
+
+---
+
+## 🔗 Companion Project — NorthBridge Passwordless Modernization
+
+Phase 10 of this toolkit covers the **PowerShell assessment layer** for passwordless readiness — scripts, CSV outputs, TAP provisioning, and authentication method auditing.
+
+The full enterprise passwordless deployment project lives in a dedicated companion repo:
+
+| | |
+|---|---|
+| **Repo** | [NorthBridge-Passwordless-Modernization](https://github.com/rahatislamanik-spec/NorthBridge-Passwordless-Modernization) |
+| **What it covers** | Enterprise architecture, Conditional Access authentication strength policies, 40,000-user rollout plan, pilot governance, help desk procedures, break-glass model |
+| **Relationship** | Phase 10 scripts feed into the NorthBridge deployment. Same fictional NorthBridge Financial Group scenario. Complementary, not duplicate. |
 
 ---
 

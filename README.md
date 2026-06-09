@@ -79,6 +79,14 @@ AD-Identity-Operations-Toolkit/
 ├── Phase9-PIMGovernanceAudit/
 │   └── Get-PIMGovernanceAudit.ps1
 │
+├── Phase10-PasswordlessModernization/
+│   ├── Scripts/                    # Passwordless readiness + TAP provisioning scripts
+│   ├── Docs/                       # Architecture, rollout plan, pilot plan, support model
+│   ├── Diagrams/                   # Mermaid architecture + rollout workflow diagrams
+│   ├── SampleOutputs/              # CSV outputs — readiness, auth methods, TAP log
+│   ├── Evidence/                   # 12 evidence screenshots
+│   └── Executive-Case-Study/       # CISO-ready executive case study
+│
 ├── Reports/                        # Auto-generated HTML reports (gitignored)
 ├── SampleOutputs/                  # Placeholder for future sanitized sample reports
 ├── evidence/

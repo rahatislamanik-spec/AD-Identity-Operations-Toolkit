@@ -1,0 +1,4 @@
+"UserPrincipalName","Department","AuthenticatorApp","FIDO2Key","PhoneMethod","RegistrationState"
+"jsmith@northbridgefinancial.com","Finance","Registered","Registered","Registered","Compliant"
+"mnguyen@northbridgefinancial.com","Operations","Registered","Not Registered","Registered","Partially Compliant"
+"jdoe@northbridgefinancial.com","HR","Not Registered","Not Registered","Not Registered","Non-Compliant"

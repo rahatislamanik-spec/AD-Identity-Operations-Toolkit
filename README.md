@@ -27,8 +27,8 @@ Developed for a simulated **NorthBridge Financial Group** environment that model
 | HTML report templates | Included inside scripts |
 | Generated HTML reports | Not retained |
 | macOS validation screenshots | Included |
-| Live AD lab execution evidence | To be regenerated |
-| Sample output folder | Placeholder only |
+| Live AD lab execution evidence | Phase 10 evidence screenshots included — 12 artifacts |
+| Sample output folder | Phase 10 CSV outputs included — see SampleOutputs/ |
 | Safety model | Documented in README, runbook, and Phase 6 script |
 
 This repository should be reviewed as a **code-centered Active Directory governance toolkit**. It includes screenshot evidence for script inventory and macOS dependency validation, but does not currently include generated reports or live Windows Active Directory execution screenshots from the original lab run.

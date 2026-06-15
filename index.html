@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AD Identity Operations Toolkit — NorthBridge Financial Group</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EE;
+    --paper-deep:#EFEBE0;
+    --ink:#1B2A3A;
+    --ink-soft:#3E4C5C;
+    --rule:#D8D2C2;
+    --rule-strong:#B9B1A0;
+    --amber:#C97A3D;
+    --amber-deep:#9A5826;
+    --sage:#5A6B5D;
+    --sage-tint:#E5E9E2;
+    --stone:#8B8378;
+    --green-ink:#2F3E2E;
+    --green-tint:#EDF1EA;
+    --max:920px;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    font-size:16px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 32px;}
+
+  /* ===== Cover ===== */
+  .cover{
+    border-bottom:1px solid var(--rule-strong);
+    padding:64px 0 48px;
+    position:relative;
+  }
+  .cover .wrap{display:flex; flex-direction:column; gap:28px;}
+  .stamp-row{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;}
+  .file-code{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:.12em;
+    color:var(--stone);
+    text-transform:uppercase;
+  }
+  .status-stamp{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--sage);
+    border:1px solid var(--sage);
+    padding:5px 12px;
+    border-radius:2px;
+  }
+  h1.title{
+    font-family:'Source Serif 4', serif;
+    font-weight:600;
+    font-size:46px;
+    line-height:1.12;
+    letter-spacing:-0.01em;
+    max-width:14ch;
+  }
+  .subtitle{
+    font-family:'Source Serif 4', serif;
+    font-style:italic;
+    font-size:19px;
+    color:var(--ink-soft);
+  }
+  .cover-meta{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(160px,1fr));
+    gap:24px;
+    margin-top:8px;
+    padding-top:24px;
+    border-top:1px solid var(--rule);
+  }
+  .cover-meta dt{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    color:var(--stone);
+    margin-bottom:6px;
+  }
+  .cover-meta dd{font-size:15px; font-weight:500;}
+  .cover-meta a{color:var(--amber-deep); text-decoration:none; border-bottom:1px solid currentColor;}
+  .cover-meta a:hover{color:var(--amber);}
+
+  /* ===== Section shell ===== */
+  section{padding:56px 0;}
+  section + section{border-top:1px solid var(--rule);}
+
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:16px;
+    margin-bottom:28px;
+  }
+  .section-tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--stone);
+    white-space:nowrap;
+    padding-top:6px;
+  }
+  h2{
+    font-family:'Source Serif 4', serif;
+    font-weight:600;
+    font-size:28px;
+    letter-spacing:-0.01em;
+  }
+  h3{
+    font-family:'Source Serif 4', serif;
+    font-weight:600;
+    font-size:19px;
+    margin-bottom:8px;
+  }
+  p{color:var(--ink-soft); max-width:68ch;}
+  p + p{margin-top:12px;}
+
+  .lede{font-size:18px; max-width:62ch;}
+
+  .callout{
+    border-left:3px solid var(--amber);
+    background:var(--paper-deep);
+    padding:16px 20px;
+    margin-top:24px;
+    font-size:14.5px;
+    color:var(--ink-soft);
+    border-radius:0;
+  }
+  .callout strong{color:var(--ink); font-weight:600;}
+
+  /* ===== Evidence ledger table ===== */
+  .evidence-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+    font-size:14.5px;
+  }
+  .evidence-table th, .evidence-table td{
+    text-align:left;
+    padding:13px 16px;
+    border-bottom:1px solid var(--rule);
+  }
+  .evidence-table th{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--stone);
+    font-weight:500;
+  }
+  .evidence-table td:first-child{font-weight:500; width:42%;}
+  .pill{
+    display:inline-block;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:.06em;
+    padding:3px 10px;
+    border-radius:2px;
+  }
+  .pill--in{background:var(--sage-tint); color:var(--sage); border:1px solid var(--sage);}
+  .pill--partial{background:#FBEFE3; color:var(--amber-deep); border:1px solid var(--amber);}
+  .pill--none{background:transparent; color:var(--stone); border:1px solid var(--rule-strong);}
+
+  /* ===== Phase ledger (signature element) ===== */
+  .ledger{display:flex; flex-direction:column;}
+  .ledger-row{
+    display:grid;
+    grid-template-columns:64px 1fr;
+    border-bottom:1px solid var(--rule);
+    padding:24px 0;
+    gap:24px;
+  }
+  .ledger-row:first-child{border-top:1px solid var(--rule-strong);}
+  .ledger-num{
+    font-family:'Source Serif 4', serif;
+    font-size:34px;
+    font-weight:600;
+    color:var(--rule-strong);
+    line-height:1;
+    padding-top:2px;
+  }
+  .ledger-row.is-flagship .ledger-num{color:var(--amber);}
+  .ledger-body h3{margin-bottom:4px;}
+  .ledger-head{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+    margin-bottom:10px;
+  }
+  .ledger-title-group{flex:1; min-width:220px;}
+  .ledger-desc{font-size:14.5px;}
+  .ledger-detect{
+    margin-top:12px;
+    font-size:13.5px;
+    color:var(--ink-soft);
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px 0;
+  }
+  .ledger-detect-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--stone);
+    display:block;
+    margin-bottom:6px;
+    width:100%;
+  }
+  .detect-item{
+    background:var(--paper-deep);
+    border:1px solid var(--rule);
+    border-radius:2px;
+    padding:4px 10px;
+    margin:0 6px 6px 0;
+    font-size:13px;
+    font-family:'JetBrains Mono', monospace;
+    color:var(--ink-soft);
+  }
+  .control-tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:0;}
+  .control-tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:.04em;
+    padding:3px 9px;
+    border-radius:2px;
+    background:var(--sage-tint);
+    color:var(--sage);
+    border:1px solid var(--sage);
+  }
+  .read-tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    padding:3px 9px;
+    border-radius:2px;
+    border:1px solid var(--rule-strong);
+    color:var(--stone);
+    white-space:nowrap;
+  }
+  .read-tag--write{border-color:var(--amber); color:var(--amber-deep);}
+
+  /* ===== Architecture diagrams block ===== */
+  .arch-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(280px,1fr));
+    gap:24px;
+    margin-top:24px;
+  }
+  .arch-card{
+    border:1px solid var(--rule);
+    background:var(--paper-deep);
+    padding:24px;
+  }
+  .arch-card h3{font-size:17px;}
+  .arch-card p{font-size:14px;}
+  .arch-link{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    margin-top:14px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:.06em;
+    color:var(--amber-deep);
+    text-decoration:none;
+    border-bottom:1px solid currentColor;
+    padding-bottom:1px;
+  }
+  .arch-link:hover{color:var(--amber);}
+
+  /* ===== Quick start code block ===== */
+  pre{
+    background:var(--green-tint);
+    border:1px solid var(--rule);
+    border-left:3px solid var(--green-ink);
+    padding:20px 22px;
+    overflow-x:auto;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    line-height:1.8;
+    color:var(--green-ink);
+    margin-top:20px;
+  }
+  pre .cmt{color:var(--stone); font-style:italic;}
+
+  /* ===== Compliance mapping table ===== */
+  .map-table{width:100%; border-collapse:collapse; margin-top:20px; font-size:14px;}
+  .map-table th, .map-table td{
+    text-align:left;
+    padding:12px 16px;
+    border-bottom:1px solid var(--rule);
+    vertical-align:top;
+  }
+  .map-table th{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--stone);
+    font-weight:500;
+  }
+  .map-table td.framework{font-family:'JetBrains Mono', monospace; font-size:12.5px; color:var(--sage);}
+  .map-table td.phase-cov{font-family:'Source Serif 4', serif; font-weight:600; white-space:nowrap;}
+
+  /* ===== Companion project ===== */
+  .companion{
+    border:1px solid var(--rule-strong);
+    background:var(--paper-deep);
+    padding:28px;
+    margin-top:24px;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+  .companion-row{display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap;}
+  .companion-row dt{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--stone);
+    margin-bottom:4px;
+  }
+  .companion-row dd{font-size:14.5px; max-width:60ch;}
+  .companion-row dd a{color:var(--amber-deep); text-decoration:none; border-bottom:1px solid currentColor;}
+
+  /* ===== Limitations / future ===== */
+  .two-col{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(320px,1fr));
+    gap:40px;
+    margin-top:8px;
+  }
+  ol, ul{padding-left:0; list-style:none;}
+  .num-list li, .bul-list li{
+    display:flex;
+    gap:12px;
+    padding:10px 0;
+    border-bottom:1px solid var(--rule);
+    font-size:14.5px;
+    color:var(--ink-soft);
+  }
+  .num-list li:last-child, .bul-list li:last-child{border-bottom:none;}
+  .num-list span.idx{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--amber-deep);
+    flex-shrink:0;
+    padding-top:1px;
+  }
+  .bul-list li::before{content:"—"; color:var(--stone); flex-shrink:0;}
+
+  /* ===== Footer / author ===== */
+  footer{
+    padding:56px 0 72px;
+    border-top:1px solid var(--rule-strong);
+  }
+  .author-row{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+  }
+  .author-mark{
+    width:52px; height:52px;
+    border:1px solid var(--ink);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Source Serif 4', serif;
+    font-weight:600;
+    font-size:18px;
+    flex-shrink:0;
+  }
+  .author-name{font-weight:600; font-size:16px;}
+  .author-role{font-size:13.5px; color:var(--stone);}
+  .footer-links{
+    display:flex;
+    gap:18px;
+    margin-top:18px;
+    flex-wrap:wrap;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+  }
+  .footer-links a{color:var(--amber-deep); text-decoration:none; border-bottom:1px solid currentColor;}
+  .footer-links a:hover{color:var(--amber);}
+  .topics{
+    margin-top:32px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .topic{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:.04em;
+    padding:4px 11px;
+    border:1px solid var(--rule-strong);
+    border-radius:2px;
+    color:var(--stone);
+  }
+
+  @media (max-width:640px){
+    h1.title{font-size:34px;}
+    .wrap{padding:0 20px;}
+    .ledger-row{grid-template-columns:40px 1fr; gap:14px;}
+    .ledger-num{font-size:26px;}
+    section{padding:40px 0;}
+    .section-head{flex-direction:column; gap:6px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="cover">
+  <div class="wrap">
+    <div class="stamp-row">
+      <span class="file-code">Repository — AD-Identity-Operations-Toolkit · NorthBridge Financial Group (simulated)</span>
+      <span class="status-stamp">Version 1 · Code complete</span>
+    </div>
+    <div>
+      <h1 class="title">AD Identity Operations Toolkit</h1>
+      <p class="subtitle">A ten-phase Active Directory governance framework for enterprise identity risk — privilege, password policy, hybrid sync, and standing access.</p>
+    </div>
+    <dl class="cover-meta">
+      <div>
+        <dt>Platform</dt>
+        <dd>PowerShell 5.1+ / 7.x</dd>
+      </div>
+      <div>
+        <dt>Phases</dt>
+        <dd>10</dd>
+      </div>
+      <div>
+        <dt>Compliance references</dt>
+        <dd>OSFI E-21 · CIS Controls v8 · NIST SP 800-53</dd>
+      </div>
+      <div>
+        <dt>Repository</dt>
+        <dd><a href="https://github.com/rahatislamanik-spec/AD-Identity-Operations-Toolkit">github.com/rahatislamanik-spec/AD-Identity-Operations-Toolkit</a></dd>
+      </div>
+    </dl>
+  </div>
+</header>
+
+<section id="overview">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">01 — Overview</span>
+      <h2>Scope and intent</h2>
+    </div>
+    <p class="lede">A production-style PowerShell framework that audits common Active Directory identity governance risks in a simulated financial-services environment, mapped to OSFI E-21, CIS Controls v8, and NIST SP 800-53 themes.</p>
+    <p>Built for a simulated NorthBridge Financial Group environment modelling enterprise AD governance concerns: privilege separation, fine-grained password policies, stale objects, service account sprawl, hybrid identity readiness, and standing privileged access. The repository stays focused on reusable script logic, report templates, and operational runbook design.</p>
+    <div class="callout">
+      Most scripts are read-only audit scripts. Phase 6 includes optional disable, move, and delete workflow switches for lab validation — those actions should only be used in a controlled AD lab or approved change window.
+    </div>
+  </div>
+</section>
+
+<section id="evidence">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">02 — Evidence status</span>
+      <h2>What this repository currently contains</h2>
+    </div>
+    <p>This repository is reviewed as a code-centred Active Directory governance toolkit. It includes screenshot evidence for script inventory and macOS dependency validation, but does not currently include generated reports or live Windows Active Directory execution screenshots from the original lab run.</p>
+    <table class="evidence-table">
+      <thead>
+        <tr><th>Artifact</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>PowerShell audit scripts</td><td><span class="pill pill--in">Included</span></td></tr>
+        <tr><td>HTML report templates</td><td><span class="pill pill--in">Included inside scripts</span></td></tr>
+        <tr><td>Generated HTML reports</td><td><span class="pill pill--none">Not retained</span></td></tr>
+        <tr><td>macOS validation screenshots</td><td><span class="pill pill--in">Included</span></td></tr>
+        <tr><td>Live AD lab execution evidence</td><td><span class="pill pill--partial">Phase 10 only — 12 artifacts</span></td></tr>
+        <tr><td>Sample output folder</td><td><span class="pill pill--partial">Phase 10 CSVs — see SampleOutputs/</span></td></tr>
+        <tr><td>Safety model</td><td><span class="pill pill--in">Documented — README, runbook, Phase 6 script</span></td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:20px;">The toolkit requires a Windows Active Directory administration environment with the <strong style="color:var(--ink); font-weight:500;">ActiveDirectory</strong> PowerShell module available through RSAT or Windows Server. macOS PowerShell dependency validation confirmed that the scripts correctly enforce this dependency through <code style="font-family:'JetBrains Mono', monospace; font-size:13px; background:var(--paper-deep); padding:1px 6px; border-radius:2px;">#Requires -Modules ActiveDirectory</code>; the scripts are not claimed to have executed successfully on macOS.</p>
+  </div>
+</section>
+
+<section id="phases">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">03 — Phase ledger</span>
+      <h2>Ten-phase audit framework</h2>
+    </div>
+    <p class="lede">Each phase is an independent PowerShell audit targeting a specific identity risk surface, with detections and report output mapped to governance control areas.</p>
+
+    <div class="ledger">
+
+      <div class="ledger-row">
+        <div class="ledger-num">01</div>
+        <div class="ledger-body">
+          <div class="ledger-head">
+            <div class="ledger-title-group">
+              <h3>Stale account detection</h3>
+              <p class="ledger-desc">Get-StaleAccounts.ps1</p>
+            </div>
+            <span class="read-tag">Read-only audit</span>
+          </div>
+          <p class="ledger-desc">Identifies user and computer accounts exceeding inactivity thresholds aligned with financial institution standards — a 30-day threshold versus the 90-day enterprise default. Flags accounts by OU, department, and last-logon delta, and outputs an interactive HTML report with a sortable risk table.</p>
+          <div class="ledger-detect">
+            <span class="ledger-detect-label">Key detections</span>
+            <span class="detect-item">Inactive &gt;30 days</span>
+            <span class="detect-item">Never logged in</span>
+            <span class="detect-item">Disabled accounts retaining group membership</span>
+            <span class="detect-item">Stale pwdLastSet on computer accounts</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ledger-row">
+        <div class="ledger-num">02</div>
+        <div class="ledger-body">
+          <div class="ledger-head">
+            <div class="ledger-title-group">
+              <h3>Privileged account audit</h3>
+              <p class="ledger-desc">Get-PrivilegedAccountAudit.ps1</p>
+            </div>
+            <span class="read-tag">Read-only audit</span>
+          </div>
+          <p class="ledger-desc">Enumerates all Tier 0 and Tier 1 privileged principals across Domain Admins, Schema Admins, Enterprise Admins, Backup Operators, and Account Operators, with recursive nested-group explosion to surface shadow privilege paths.</p>
+          <div class="ledger-detect">
+            <span class="ledger-detect-label">Key detections</span>
+            <span class="detect-item">Nested-group privilege escalation</span>
+            <span class="detect-item">Admin accounts with no MFA indicator</span>
+            <span class="detect-item">Non-expiring privileged passwords</span>
+            <span class="detect-item">Service accounts in Tier 0 groups</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ledger-row">
+        <div class="ledger-num">03</div>
+        <div class="ledger-body">
+          <div class="ledger-head">
+            <div class="ledger-title-group">
+              <h3>Password policy compliance</h3>
+              <p class="ledger-desc">Get-PasswordPolicyCompliance.ps1</p>
+            </div>
+            <span class="read-tag">Read-only audit</span>
+          </div>
+          <p class="ledger-desc">Audits both the default domain password policy and Fine-Grained Password Policies across all PSOs, mapping policy coverage gaps and identifying accounts that fall outside compliant policy scope.</p>
+          <div class="ledger-detect">
+            <span class="ledger-detect-label">Key detections</span>
+            <span class="detect-item">PasswordNeverExpires</span>
+            <span class="detect-item">PasswordNotRequired</span>
+            <span class="detect-item">PSO coverage gaps</span>
+            <span class="detect-item">Policy strength vs OSFI E-21 minimums</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ledger-row">
+        <div class="ledger-num">04</div>
+        <div class="ledger-body">
+          <div class="ledger-head">
+            <div class="ledger-title-group">
+              <h3>Group membership audit</h3>
+              <p class="ledger-desc">Get-GroupMembershipAudit.ps1</p>
+            </div>
+            <span class="read-tag">Read-only audit</span>
+          </div>
+          <p class="ledger-desc">Analyses AD security group health across the environment, detecting circular nesting, orphaned groups, over-privileged distribution lists, and groups exceeding membership thresholds.</p>
+          <div class="ledger-detect">
+            <span class="ledger-detect-label">Key detections</span>
+            <span class="detect-item">Circular group nesting</span>
+            <span class="detect-item">Empty security groups</span>
+            <span class="detect-item">Groups &gt;500 members, no owner</span>
+            <span class="detect-item">Distribution lists nesting security groups</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ledger-row">
+        <div class="ledger-num">05</div>
+        <div class="ledger-body">
+          <div class="ledger-head">
+            <div class="ledger-title-group">
+              <h3>Service account governance</h3>
+              <p class="ledger-desc">Get-ServiceAccountGovernance.ps1</p>
+            </div>
+            <span class="read-tag">Read-only audit</span>
+          </div>
+          <p class="ledger-desc">Enumerates service accounts by convention and SPN registration, flagging Kerberoastable accounts, SPNs registered on user objects, and service accounts operating outside dedicated OUs.</p>
+          <div class="ledger-detect">
+            <span class="ledger-detect-label">Key detections</span>
+            <span class="detect-item">Kerberoastable accounts</span>
+            <span class="detect-item">Service accounts in privileged groups</span>
+            <span class="detect-item">Non-gMSA without managed password</span>
+            <span class="detect-item">SPN conflicts</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ledger-row">
+        <div class="ledger-num">06</div>
+        <div class="ledger-body">
+          <div class="ledger-head">
+            <div class="ledger-title-group">
+              <h3>Inactive object cleanup workflow</h3>
+              <p class="ledger-desc">Invoke-InactiveObjectCleanup.ps1</p>
+            </div>
+            <span class="read-tag read-tag--write">Write actions — gated</span>
+          </div>
+          <p class="ledger-desc">Implements a staged disable → move → delete remediation model for lab validation. Default behaviour is discovery and preview; write actions require explicit execution switches and should follow review, approval, and backup validation.</p>
+          <div class="ledger-detect">
+            <span class="ledger-detect-label">Pipeline</span>
+            <span class="detect-item">Discovery</span>
+            <span class="detect-item">Risk classification</span>
+            <span class="detect-item">Dry-run preview</span>
+            <span class="detect-item">Staged disable</span>
+            <span class="detect-item">OU quarantine</span>
+            <span class="detect-item">30-day hold</span>
+            <span class="detect-item">Deletion with audit log</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ledger-row">
+        <div class="ledger-num">07</div>
+        <div class="ledger-body">
+          <div class="ledger-head">
+            <div class="ledger-title-group">
+              <h3>Executive summary report</h3>
+              <p class="ledger-desc">New-ExecutiveSummaryReport.ps1</p>
+            </div>
+            <span class="read-tag">Aggregation</span>
+          </div>
+          <p class="ledger-desc">Aggregates findings from all phases into a single executive-ready HTML report with risk scoring, trend indicators, and OSFI E-21 control mapping — designed for CISO and audit committee consumption.</p>
+          <div class="ledger-detect">
+            <span class="ledger-detect-label">Output</span>
+            <span class="detect-item">Risk-scored HTML dashboard</span>
+            <span class="detect-item">Control gap heatmap</span>
+            <span class="detect-item">Remediation priority matrix</span>
+            <span class="detect-item">Print / PDF-friendly layout</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ledger-row">
+        <div class="ledger-num">08</div>
+        <div class="ledger-body">
+          <div class="ledger-head">
+            <div class="ledger-title-group">
+              <h3>Hybrid identity &amp; Entra ID sync audit</h3>
+              <p class="ledger-desc">Get-HybridIdentityAudit.ps1</p>
+            </div>
+            <span class="read-tag">Read-only audit</span>
+          </div>
+          <p class="ledger-desc">Audits the hybrid identity boundary where on-premises AD synchronises to Microsoft Entra ID via Azure AD Connect, detecting privileged accounts synced to the cloud, AADC service account misconfigurations, UPN conflicts, and stale synced accounts active in both environments.</p>
+          <div class="ledger-detect">
+            <span class="ledger-detect-label">Key detections</span>
+            <span class="detect-item">Privileged accounts synced to Entra ID</span>
+            <span class="detect-item">Azure AD Connect service account audit</span>
+            <span class="detect-item">UPN suffix mismatches</span>
+            <span class="detect-item">adminCount=1 on synced accounts</span>
+            <span class="detect-item">Stale synced accounts</span>
+            <span class="detect-item">ProxyAddress conflicts</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ledger-row">
+        <div class="ledger-num">09</div>
+        <div class="ledger-body">
+          <div class="ledger-head">
+            <div class="ledger-title-group">
+              <h3>PIM governance audit</h3>
+              <p class="ledger-desc">Get-PIMGovernanceAudit.ps1</p>
+            </div>
+            <span class="read-tag">Read-only audit</span>
+          </div>
+          <p class="ledger-desc">Audits permanent privileged role assignments across the domain and identifies Privileged Identity Management governance gaps — accounts that should be converted to just-in-time eligible roles, SDProp adminCount artifacts, non-dedicated admin accounts with permanent privilege, and stale standing privileged access.</p>
+          <div class="ledger-detect">
+            <span class="ledger-detect-label">Key detections</span>
+            <span class="detect-item">Permanent Domain Admin assignments</span>
+            <span class="detect-item">SDProp adminCount=1 artifacts</span>
+            <span class="detect-item">Non-dedicated accounts, standing privilege</span>
+            <span class="detect-item">Stale permanent privileged accounts</span>
+            <span class="detect-item">Cloud-synced privileged principals</span>
+            <span class="detect-item">Service accounts with permanent admin rights</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ledger-row is-flagship">
+        <div class="ledger-num">10</div>
+        <div class="ledger-body">
+          <div class="ledger-head">
+            <div class="ledger-title-group">
+              <h3>Passwordless modernization</h3>
+              <p class="ledger-desc">Scripts · Docs · Diagrams · SampleOutputs · Evidence · Executive case study</p>
+            </div>
+            <span class="read-tag">Evidence included — 12 artifacts</span>
+          </div>
+          <p class="ledger-desc">The assessment layer for passwordless readiness: scripts and CSV outputs covering readiness scoring, authentication-method auditing, and Temporary Access Pass provisioning, packaged with architecture and rollout diagrams and a CISO-ready executive case study. This is the only phase with retained live-evidence screenshots and sample CSV output.</p>
+          <div class="ledger-detect">
+            <span class="ledger-detect-label">Contents</span>
+            <span class="detect-item">Readiness + auth method scripts</span>
+            <span class="detect-item">Architecture &amp; rollout diagrams</span>
+            <span class="detect-item">CSV outputs — readiness, auth methods, TAP log</span>
+            <span class="detect-item">12 evidence screenshots</span>
+            <span class="detect-item">Executive case study</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="architecture">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">04 — Architecture</span>
+      <h2>Architecture and audit workflow</h2>
+    </div>
+    <p>These artifacts explain the intended architecture and operating model for the toolkit. They are not retained execution evidence, generated reports, or proof of production deployment.</p>
+    <div class="arch-grid">
+      <div class="arch-card">
+        <h3>Toolkit architecture</h3>
+        <p>Visualizes the pipeline from AD data sources to PowerShell audits, report templates, governance review, and remediation planning.</p>
+        <a class="arch-link" href="https://rahatislamanik-spec.github.io/AD-Identity-Operations-Toolkit/ad-toolkit-architecture.html">View interactive HTML version →</a>
+      </div>
+      <div class="arch-card">
+        <h3>Audit workflow</h3>
+        <p>Visual workflow showing scheduled PowerShell audit execution, AD object review, report generation, governance review, approved remediation, and next-run validation.</p>
+        <a class="arch-link" href="https://rahatislamanik-spec.github.io/AD-Identity-Operations-Toolkit/ad-toolkit-audit-workflow.html">View interactive HTML version →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="quickstart">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">05 — Quick start</span>
+      <h2>Run the first phase</h2>
+    </div>
+    <p>Requires PowerShell 5.1+ (7.x recommended) with the ActiveDirectory RSAT module on Windows Server 2019/2022 or Windows 10/11. Domain read access is sufficient for audit phases; Phase 6 write actions require delegated or elevated rights.</p>
+    <pre><span class="cmt"># Clone the repository</span>
+git clone https://github.com/rahatislamanik-spec/AD-Identity-Operations-Toolkit.git
+cd AD-Identity-Operations-Toolkit
+
+<span class="cmt"># Import the AD module (if not auto-loaded)</span>
+Import-Module ActiveDirectory
+
+<span class="cmt"># Run Phase 1 in dry-run mode</span>
+.\Phase1-StaleAccountDetection\Get-StaleAccounts.ps1 -DaysInactive 30 -WhatIf
+
+<span class="cmt"># Run Phase 1 and generate the HTML report</span>
+.\Phase1-StaleAccountDetection\Get-StaleAccounts.ps1 -DaysInactive 30 -GenerateReport -OutputPath ".\Reports\"</pre>
+  </div>
+</section>
+
+<section id="compliance">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">06 — Compliance mapping</span>
+      <h2>Control area coverage</h2>
+    </div>
+    <p>Mappings are educational control references for portfolio demonstration, not a formal audit opinion or certification.</p>
+    <table class="map-table">
+      <thead>
+        <tr><th>Control area</th><th>Framework reference</th><th>Phase</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Privileged access management</td><td class="framework">OSFI E-21 §3.2 · CIS Control 5</td><td class="phase-cov">2, 5</td></tr>
+        <tr><td>Account lifecycle management</td><td class="framework">OSFI E-21 §3.4 · CIS Control 6</td><td class="phase-cov">1, 6</td></tr>
+        <tr><td>Password &amp; authentication policy</td><td class="framework">OSFI E-21 §3.3 · NIST 800-53 IA-5</td><td class="phase-cov">3</td></tr>
+        <tr><td>Access reviews &amp; recertification</td><td class="framework">CIS Control 6.3 · SOC 2 CC6.3</td><td class="phase-cov">2, 4</td></tr>
+        <tr><td>Service account security</td><td class="framework">CIS Control 5.6 · NIST 800-53 AC-6</td><td class="phase-cov">5</td></tr>
+        <tr><td>Audit logging</td><td class="framework">OSFI E-21 §4.1 · CIS Control 8</td><td class="phase-cov">6, 7</td></tr>
+        <tr><td>Hybrid identity governance</td><td class="framework">OSFI E-21 §3.2/3.4 · NIST SP 800-53 IA-2</td><td class="phase-cov">8</td></tr>
+        <tr><td>Just-in-time privileged access</td><td class="framework">OSFI E-21 §3.2 · CIS Control 5.4 · NIST AC-6(5)</td><td class="phase-cov">9</td></tr>
+        <tr><td>Passwordless modernization</td><td class="framework">OSFI E-21 §3.3 · NIST SP 800-63B · CIS Control 5.2</td><td class="phase-cov">10</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="companion">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">07 — Companion project</span>
+      <h2>NorthBridge passwordless modernization</h2>
+    </div>
+    <p>Phase 10 of this toolkit covers the PowerShell assessment layer for passwordless readiness — scripts, CSV outputs, Temporary Access Pass provisioning, and authentication-method auditing. The full enterprise deployment project lives in a dedicated companion repository, sharing the same fictional NorthBridge Financial Group scenario.</p>
+    <div class="companion">
+      <div class="companion-row">
+        <div>
+          <dt>Repository</dt>
+          <dd><a href="https://github.com/rahatislamanik-spec/NorthBridge-Passwordless-Modernization">NorthBridge-Passwordless-Modernization →</a></dd>
+        </div>
+      </div>
+      <div class="companion-row">
+        <div>
+          <dt>What it covers</dt>
+          <dd>Enterprise architecture, Conditional Access authentication-strength policies, a 40,000-user rollout plan, pilot governance, help desk procedures, and a break-glass model.</dd>
+        </div>
+        <div>
+          <dt>Relationship</dt>
+          <dd>Phase 10 scripts feed into the NorthBridge deployment. Same fictional NorthBridge Financial Group scenario — complementary, not duplicate.</dd>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="limitations">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">08 — Limitations &amp; roadmap</span>
+      <h2>Known limits and future validation</h2>
+    </div>
+    <div class="two-col">
+      <div>
+        <h3 style="font-size:15px; color:var(--stone); font-family:'JetBrains Mono', monospace; letter-spacing:.08em; text-transform:uppercase; margin-bottom:12px;">Limitations</h3>
+        <ul class="bul-list">
+          <li>Contains script logic and documentation, not retained screenshots or generated report artifacts beyond Phase 10.</li>
+          <li>Compliance mappings are educational control references, not a formal audit opinion or certification.</li>
+          <li>Hybrid identity and PIM phases use on-premises AD indicators; full Entra ID cloud-side validation requires Microsoft Graph modules and permissions.</li>
+          <li>Phase 6 can disable, move, or delete AD objects when execution switches are supplied — test in a lab first and use formal change control in any real environment.</li>
+          <li>Some detections rely on naming conventions, AD attributes, or available module data and should be tuned per organization.</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="font-size:15px; color:var(--stone); font-family:'JetBrains Mono', monospace; letter-spacing:.08em; text-transform:uppercase; margin-bottom:12px;">Future validation plan</h3>
+        <ol class="num-list">
+          <li><span class="idx">01</span>Rebuild a Windows Server 2022 Active Directory lab.</li>
+          <li><span class="idx">02</span>Create safe sample users, stale accounts, privileged groups, service accounts, and hybrid identity attributes.</li>
+          <li><span class="idx">03</span>Run Phases 1–9 and retain sanitized HTML/CSV reports.</li>
+          <li><span class="idx">04</span>Capture screenshots of script execution, report output, and relevant AD views.</li>
+          <li><span class="idx">05</span>Add a phase-by-phase evidence map linking scripts, reports, and screenshots.</li>
+          <li><span class="idx">06</span>Re-review Phase 6 against a written change-control checklist before demonstrating write actions.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="author-row">
+      <div class="author-mark">RA</div>
+      <div>
+        <p class="author-name">Md Rahat Islam Anik</p>
+        <p class="author-role">IT systems administrator · M365 &amp; identity specialist · security operations</p>
+      </div>
+    </div>
+    <div class="footer-links">
+      <a href="https://rahatislamanik-spec.github.io/IT-Portfolio-Rahat-Islam-Anik">Portfolio</a>
+      <a href="https://linkedin.com/in/rahatislamanik">LinkedIn</a>
+      <a href="https://github.com/rahatislamanik-spec">GitHub</a>
+      <a href="https://github.com/rahatislamanik-spec/AD-Identity-Operations-Toolkit">Repository</a>
+    </div>
+    <div class="topics">
+      <span class="topic">powershell</span>
+      <span class="topic">iam</span>
+      <span class="topic">active-directory</span>
+      <span class="topic">windows-server</span>
+      <span class="topic">financial-services</span>
+      <span class="topic">identity-governance</span>
+      <span class="topic">security-operations</span>
+      <span class="topic">privileged-access-management</span>
+      <span class="topic">cis-controls</span>
+      <span class="topic">enterprise-it</span>
+      <span class="topic">ad-audit</span>
+      <span class="topic">osfi</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,5 +1,7 @@
 # 🏦 AD Identity Operations Toolkit
 
+> **Status:** Portfolio Complete — v1.0 Code-Centered Identity Governance Toolkit
+
 <p align="center">
   <a href="https://rahatislamanik-spec.github.io/AD-Identity-Operations-Toolkit/">
     <strong>🔗 View Live Portfolio Site</strong>
@@ -11,7 +13,7 @@
 ![PowerShell](https://img.shields.io/badge/PowerShell-7.x-blue?logo=powershell)
 ![Platform](https://img.shields.io/badge/Platform-Windows%20Server%202019%2F2022-lightgrey?logo=windows)
 ![Compliance](https://img.shields.io/badge/Compliance-OSFI%20E--21%20%7C%20CIS%20Controls-green)
-![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)
+![Status](https://img.shields.io/badge/Status-Portfolio%20Complete%20v1.0-brightgreen)
 ![Phases](https://img.shields.io/badge/Phases-10%20Complete-6D28D9)
 ![License](https://img.shields.io/badge/License-MIT-brightgreen)
 
@@ -33,25 +35,27 @@ Developed for a simulated **NorthBridge Financial Group** environment that model
 |---|---|
 | PowerShell audit scripts | Included |
 | HTML report templates | Included inside scripts |
-| Generated HTML reports | Not retained |
+| Architecture and workflow visuals | Included |
+| Script inventory evidence | Included |
 | macOS validation screenshots | Included |
-| Live AD lab execution evidence | Phase 10 evidence screenshots included — 12 artifacts |
-| Sample output folder | Phase 10 CSV outputs included — see SampleOutputs/ |
+| Phase 10 passwordless readiness evidence | Included |
+| Phase 10 CSV sample outputs | Included — see SampleOutputs/ |
+| Windows AD execution evidence for Phases 1-9 | Not included in Version 1 scope |
 | Safety model | Documented in README, runbook, and Phase 6 script |
 
-This repository should be reviewed as a **code-centered Active Directory governance toolkit**. It includes screenshot evidence for script inventory and macOS dependency validation, but does not currently include generated reports or live Windows Active Directory execution screenshots from the original lab run.
+This repository should be reviewed as a **code-centered Active Directory identity governance toolkit**. Version 1 includes the script framework, operational documentation, architecture visuals, macOS dependency validation, and Phase 10 passwordless readiness evidence while avoiding claims of a fully executed Windows Active Directory production deployment.
 
 ---
 
 ## Version 1 Status
 
-This repository is currently complete as a Version 1 code-centered Active Directory governance toolkit. It includes the script framework, phase documentation, architecture visualization, audit workflow visualization, and operational runbook.
+This repository is complete as a Version 1 code-centered Active Directory identity governance toolkit. It includes the PowerShell script framework, phase documentation, architecture visualization, audit workflow visualization, operational runbook, Phase 10 passwordless readiness materials, and supporting evidence artifacts.
 
-Current evidence includes the README-visible architecture and audit workflow visuals, linked GitHub Pages HTML versions, script inventory evidence, and macOS dependency validation evidence. Generated HTML reports, CSV outputs, and live AD execution screenshots are planned future validation artifacts and are not currently claimed as retained execution evidence.
+The project is intentionally scoped as a governance and automation framework. It is not presented as a production deployment or as a fully executed Windows Active Directory lab for every phase.
 
-The toolkit requires a Windows Active Directory administration environment with the ActiveDirectory PowerShell module available through RSAT or Windows Server. macOS PowerShell dependency validation confirmed that the scripts correctly enforce this dependency through `#Requires -Modules ActiveDirectory`; the scripts are not claimed to have executed successfully on macOS.
+Current evidence includes architecture and workflow visuals, linked GitHub Pages HTML versions, script inventory evidence, macOS dependency validation evidence, Phase 10 screenshots, and Phase 10 CSV sample outputs. Generated Windows AD execution reports for Phases 1-9 are not claimed as retained evidence in this version.
 
-The next major improvement is to run the scripts in a Windows AD lab and add sanitized generated reports, CSV outputs, and Windows Server, RSAT, or domain controller screenshots.
+The toolkit requires a Windows Active Directory administration environment with the ActiveDirectory PowerShell module available through RSAT or Windows Server for live AD execution. macOS PowerShell dependency validation confirms that the scripts correctly enforce this dependency through `#Requires -Modules ActiveDirectory`; the AD scripts are not claimed to have executed successfully on macOS.
 
 ---
 
@@ -259,7 +263,7 @@ Import-Module ActiveDirectory
 
 ## Limitations
 
-- This repo currently contains script logic and documentation, but not retained screenshots or generated report artifacts.
+- This Version 1 repo contains script logic, documentation, architecture visuals, macOS dependency validation evidence, and Phase 10 evidence artifacts; it does not claim retained Windows AD execution reports for every phase.
 - Compliance mappings are educational control references, not a formal audit opinion or certification.
 - Hybrid Identity and PIM phases include on-premises AD indicators; full Entra ID cloud-side validation requires Microsoft Graph modules and appropriate permissions.
 - Phase 6 can disable, move, or delete AD objects when execution switches are supplied. Test in a lab first and use formal change control in any real environment.
@@ -267,14 +271,9 @@ Import-Module ActiveDirectory
 
 ---
 
-## Future Validation Plan
+## Version 1 Scope Boundary
 
-1. Rebuild a Windows Server 2022 Active Directory lab.
-2. Create safe sample users, stale accounts, privileged groups, service accounts, and hybrid identity attributes.
-3. Run Phases 1-9 and retain sanitized HTML/CSV reports.
-4. Capture screenshots of script execution, report output, and relevant AD views.
-5. Add a phase-by-phase evidence map linking scripts, reports, and screenshots.
-6. Re-review Phase 6 against a written change-control checklist before demonstrating write actions.
+Version 1 is closed as a code-centered toolkit and documentation framework. Additional Windows AD lab execution reports may be produced separately in the future, but those artifacts are outside the current Version 1 scope and are not required for this repository to be reviewed as a completed portfolio project.
 
 ---
 

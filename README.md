@@ -105,7 +105,7 @@ AD-Identity-Operations-Toolkit/
 │      https://github.com/rahatislamanik-spec/NorthBridge-Passwordless-Modernization
 │
 ├── Reports/                        # Auto-generated HTML reports (gitignored)
-├── SampleOutputs/                  # Placeholder for future sanitized sample reports
+├── SampleOutputs/                  # Sanitized sample report outputs and README
 ├── evidence/
 │   ├── macos-active-directory-module-validation.png
 │   ├── phase1-script-header-active-directory-requirement.png
